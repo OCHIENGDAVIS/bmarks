@@ -1,0 +1,39 @@
+.form_errors, .errorlist {
+    color: var(--error-color);
+    list-style:disc;
+    margin-bottom: 1rem;
+}
+
+.login_form_container input:not([type="submit"]){
+    width: 60%;
+    border: none;
+    outline: none;
+    padding: 1rem 0.5rem;
+    background-color: var(--primary-text-color-shade);
+    color: var(--primary-text-color);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.form_title{
+    margin-bottom: 4rem;
+}
+
+.login_form_container form label{
+    font-size: 2rem;
+    font-weight: 600;
+}
+.login_form_container input[type="submit"]{
+    color: var(--secondary-text-color);
+    border: none;
+    font-size: 2.5rem;
+    padding: 1.2rem 2rem;
+    background-color: var(--primary-color);
+    width: 15%;
+    cursor: pointer;
+}
+.login_form_container input[type="submit"]:hover{
+    background-color: var(--secondary-color);
+    animation: ease-in;
+    color: var(--primary-text-color);
+}

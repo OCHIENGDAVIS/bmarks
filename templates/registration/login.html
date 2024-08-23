@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Login  {% endblock %}
 
 {% block style %}
+<link rel="stylesheet"  href="{% static 'css/login.css' %}"/>
 {% endblock %}
 
 {% block content %}
-<h1>Login </h1>
+<h1 class="main_content--title">Login </h1>
 {% if form.errors %}
-    <p>Your uusername and password did not match. Please try again.</p>
+
 {% else %}
-    <p>Please use the following form to login</p>
+    <p class="form_title">Please use the following form to login</p>
 {% endif %}
-<div class="login_form">
+<div class="login_form_container">
     <form action="{% url 'account:login' %}" method="POST"> {% csrf_token %}
         {{form.as_p}}
         <input type="hidden" name="next" value="{{ next }}" />
@@ -21,4 +23,4 @@
         </p>
     </form>
 </div>
-{% endblock %}
+{% endblock %} 
