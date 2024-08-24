@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.urls import reverse_lazy
 
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
 
 
 def user_login(request):
@@ -48,3 +48,16 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
         uidb64 = self.kwargs['uidb64']
         token = self.kwargs['token']
         return reverse_lazy('account:password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            new_user.set_password(form.cleaned_data.get('password'))
+            new_user.save()
+            return render(request, 'account/register_done.html', {'new_user': new_user})
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'account/register.html', {'form': form})
