@@ -1,10 +1,10 @@
 .form_errors, .errorlist {
     color: var(--error-color);
-    list-style:disc;
+    list-style: disc;
     margin-bottom: 1rem;
 }
 
-.login_form_container input:not([type="submit"]){
+.login_form_container input:not([type="submit"]) {
     width: 60%;
     border: none;
     outline: none;
@@ -15,15 +15,16 @@
     font-size: 2rem;
 }
 
-.form_title{
+.form_title {
     margin-bottom: 4rem;
 }
 
-.login_form_container form label{
+.login_form_container form label {
     font-size: 2rem;
     font-weight: 600;
 }
-.login_form_container input[type="submit"]{
+
+.login_form_container input[type="submit"] {
     color: var(--secondary-text-color);
     border: none;
     font-size: 2.5rem;
@@ -32,8 +33,16 @@
     width: 15%;
     cursor: pointer;
 }
-.login_form_container input[type="submit"]:hover{
+
+.login_form_container input[type="submit"]:hover {
     background-color: var(--secondary-color);
     animation: ease-in;
     color: var(--primary-text-color);
+}
+
+.password_forget {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 3rem;
+    color: var(--primary-color);
 }
