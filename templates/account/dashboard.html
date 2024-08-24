@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="main_content--title">Dashboard</h1>
-<p>Welcome to your dashboard</p>
-{% endblock  %}
+    <h1 class="main_content--title">Dashboard</h1>
+    <p>Welcome to your dashboard.
+        You can <a href="{% url 'account:edit' %}">Edit your profile</a> or <a
+                href="{% url 'account:password_change' %}">Change your password</a>
+    </p>
+{% endblock %}
