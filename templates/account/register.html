@@ -16,4 +16,18 @@
 
         </form>
     </div>
+    <div class="social">
+        <ul>
+            <li>
+                <a href="{% url 'social:begin' 'facebook' %}">Sign in with Facebook</a>
+            </li>
+            <li>
+                <a href="{% url 'social:begin' 'twitter' %}">Sign in with Twitter</a>
+            </li>
+            <li>
+                <a href="{% url 'social:begin' 'google-oauth2' %}">Sign in with Google</a>
+            </li>
+        </ul>
+
+    </div>
 {% endblock %}
