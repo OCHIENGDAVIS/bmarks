@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} {{ image.title }} {% endblock %}
+
+{% block style %}
+    <link rel=ylesheet" href="{% static 'css/detail.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <h1 class="main_content--title">{{ image.title }}</h1>
+    <a href="{{ image.image.url }}">
+        <img src="{% thumbnail image.image 300x0 %}" class="image_detail"/>
+    </a>
+    {% with total_likes=image.users_like.count %}
+        <div class="image_info">
+            <div>
+                <span class="count"> {{ total_likes }} like {{ total_likes|pluralize }}</span>
+            </div>
+            {{ image.description|linebreaks }}
+
+        </div>
+        <div class="image_likes">
+            {% for user in image.users_like.all %}
+                <div>
+                    {% if user.profile.photo %}
+                        <img src="{{ user.profile.photo.url }}">
+                    {% endif %}
+                    <p>{{ user.first_name }}</p>
+                </div>
+            {% empty %}
+                nobody likes this image yet
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+{% endblock %}
