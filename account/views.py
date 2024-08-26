@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -6,10 +6,15 @@ from django.contrib.auth.views import PasswordChangeView, PasswordResetView, Pas
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 
 from .forms import LoginForm, UserRegistrationForm
-from .models import Profile
+from .models import Profile, Contact
 from .forms import UserEditForm, ProfileEditForm
+
+User = get_user_model()
 
 
 def user_login(request):
@@ -98,3 +103,35 @@ def edit(request):
             'profile_form': profile_form
         }
     )
+
+
+@login_required
+def user_list(request):
+    users = User.objects.filter(is_active=True)
+    return render(request, 'account/user_list.html', {'users': users})
+
+
+def user_detail(request, username):
+    user = get_object_or_404(User, username=username, is_active=True)
+    return render(request, 'account/user_detail.html', {'user': user})
+
+
+@require_POST
+@login_required
+def user_follow(request):
+    user_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if user_id and action:
+        try:
+            user = User.objects.get(id=user_id)
+            if action == 'follow':
+                Contact.objects.get_or_create(
+                    user_from=request.user,
+                    user_to=user
+                )
+            else:
+                Contact.objects.filter(user_from=request.user, user_to=user).delete()
+            return JsonResponse({'status': 'ok'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error'})
