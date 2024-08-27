@@ -50,11 +50,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'django_extensions',
+    'debug_toolbar',
     'images.apps.ImagesConfig',
     'easy_thumbnails',
+    'actions.apps.ActionsConfig',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -177,6 +180,16 @@ if DEBUG:
     mimetypes.add_type('application/javascript', '.js', True)
     mimetypes.add_type('text/css', '.css', True)
 
+# using get_absolute_url method with the default Django User model
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: reverse_lazy('account:user_detail', args=[u.username])
 }
+# django debug toolbar setting
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+# redis setting
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
